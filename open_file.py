@@ -69,7 +69,7 @@ def describe_dataset(rows):
     # Пустым считаем None или строку из одних пробелов
     missing = {c: sum(1 for r in rows if not (r[c] or "").strip()) for c in columns}
     # csv отдаёт всё строками, поэтому у всех столбцов будет тип str
-    types = {c: type(rows[0][c]).name for c in columns}
+    types = {c: type(rows[0][c]).__name__ for c in columns}
 
     info = {
         "rows": len(rows),
