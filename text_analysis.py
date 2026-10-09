@@ -32,6 +32,16 @@ def get_tokens(text):
 
     return final_tokens
 
+# подсчет слов
+def count_words(dict, words_set):
+    for word in words_set:
+        if not word.isalpha():
+            continue
+        if word in dict:
+            dict[word] += 1
+        else:
+            dict[word] = 1
+
 # вывод топ 20 до и после отчистки
 def show_top_20(title, words_list):
     top_data = Counter(words_list).most_common(20)
