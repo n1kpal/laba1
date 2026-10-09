@@ -4,6 +4,8 @@ def lemmatize_word(word: str) -> str:
     word = word.strip().lower()
     if not word:
         return ""
+    if word == "тел":
+        return "телефон"
     parsed = morph.parse(word)[0]
     return parsed.normal_form
 

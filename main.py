@@ -2,7 +2,7 @@ from open_file import load_dataset, describe_dataset
 from clean_text import lowercase_and_clean, delete_entities
 from entity_extractor import find_entities
 from Lemmatization import lemmatize_words
-from text_analysis import get_tokens, count_words, stops
+from text_analysis import get_tokens, count_words
 from field_formation import field_formation
 from save_file import save_records
 
@@ -20,8 +20,8 @@ words_dict_after: dict[str: int] = dict()
 
 # Подсчет до удаления стоп слов
 for i in range(len(data)):
-    clean_text = lowercase_and_clean(data[i]["message"])
-    count_words(words_dict_befor, set(clean_text.split()))
+    clean_text = lemmatize_words(lowercase_and_clean(data[i]["message"]).split())
+    count_words(words_dict_befor, set(clean_text))
 a = sorted(words_dict_befor.keys(), key=lambda x: words_dict_befor[x], reverse=True)
 
 for i in range(len(data)):
@@ -33,7 +33,7 @@ for i in range(len(data)):
     clean_text = delete_entities(anonymized_text)
     # Токенизация и подсчет
     tokens = get_tokens(clean_text)
-    count_words(words_dict_after, set(tokens))
+    count_words(words_dict_after, set(lemmatize_words(tokens)))
     # Леммматизация
     lemmas = lemmatize_words(tokens.copy())
     # Формирование резултирующего датасета
